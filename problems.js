@@ -29,7 +29,7 @@
      answer: {
        value:     number   — expected numerical result
        unit:      string   — expected unit string
-       tolerance: number   — fractional tolerance (0.01 = ±1 %)
+       tolerance: number   — fractional tolerance (0.05 = ±5 %)
      },
      hints: [string]      — up to 3 progressive hints
    }
@@ -67,7 +67,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-km-m'],
-        answer: { value: 4500, unit: 'm', tolerance: 0.01 },
+        answer: { value: 4500, unit: 'm', tolerance: 0.05 },
         hints: [
             'You are starting with km and need to end with m. Look for a factor that has km in the denominator.',
             'The factor "1000 m / 1 km" will cancel km and leave m.',
@@ -97,7 +97,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-hr-s'],
-        answer: { value: 9000, unit: 's', tolerance: 0.01 },
+        answer: { value: 9000, unit: 's', tolerance: 0.05 },
         hints: [
             'You need hr → s. Is there a single factor that does this directly?',
             'Yes: 3600 s / 1 hr.',
@@ -127,7 +127,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-g-kg'],
-        answer: { value: 0.35, unit: 'kg', tolerance: 0.01 },
+        answer: { value: 0.35, unit: 'kg', tolerance: 0.05 },
         hints: [
             'You have grams and need kilograms. Find the factor with g in the denominator and kg in the numerator.',
             'Use: 1 kg / 1000 g',
@@ -159,7 +159,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-kg-g'],
-        answer: { value: 750, unit: 'g', tolerance: 0.01 },
+        answer: { value: 750, unit: 'g', tolerance: 0.05 },
         hints: [
             'Start with kg, need g. The factor needs kg in the denominator.',
             '1000 g / 1 kg cancels kg and gives g.',
@@ -189,7 +189,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-mL-L'],
-        answer: { value: 0.250, unit: 'L', tolerance: 0.01 },
+        answer: { value: 0.250, unit: 'L', tolerance: 0.05 },
         hints: [
             'You have mL and need L. The factor must cancel mL.',
             'Use 1 L / 1000 mL.',
@@ -219,7 +219,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-g-mol-H2O'],
-        answer: { value: 2, unit: 'mol', tolerance: 0.02 },
+        answer: { value: 2, unit: 'mol', tolerance: 0.05 },
         hints: [
             'Molar mass acts as a conversion factor between grams and moles.',
             'To cancel "g", put g in the denominator: 1 mol / 18 g.',
@@ -259,7 +259,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-lb-g'],
-        answer: { value: 8172, unit: 'g', tolerance: 0.01 },
+        answer: { value: 8172, unit: 'g', tolerance: 0.05 },
         hints: [
             'You need lbs → g. Look for a factor that has lbs in the denominator.',
             '454 g / 1 lb cancels lbs and leaves g — that is all you need for this particular path.',
@@ -293,7 +293,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-km-m', 'f-m-cm'],
-        answer: { value: 520000, unit: 'cm', tolerance: 0.01 },
+        answer: { value: 520000, unit: 'cm', tolerance: 0.05 },
         hints: [
             'There is no single factor from km to cm. You will need two steps.',
             'Step 1: convert km → m using 1000 m / 1 km.',
@@ -327,7 +327,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-kJ-J', 'f-J-cal'],
-        answer: { value: 103253, unit: 'cal', tolerance: 0.02 },
+        answer: { value: 103253, unit: 'cal', tolerance: 0.05 },
         hints: [
             'You need kJ → cal. There is no direct factor, so plan two steps.',
             'First convert kJ → J: multiply by (1000 J / 1 kJ).',
@@ -359,7 +359,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-gCO2-mol'],
-        answer: { value: 2, unit: 'mol CO₂', tolerance: 0.02 },
+        answer: { value: 2, unit: 'mol CO₂', tolerance: 0.05 },
         hints: [
             'Molar mass is your conversion factor: 44 g/mol for CO₂.',
             'Put g CO₂ in the denominator to cancel: 1 mol CO₂ / 44 g CO₂.',
@@ -393,7 +393,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-mol-mmol'],
-        answer: { value: 1000, unit: 'mmol', tolerance: 0.02 },
+        answer: { value: 1000, unit: 'mmol', tolerance: 0.05 },
         hints: [
             'At 2.0 mol/L × 0.500 L = 1.0 mol. You can treat the 500 mL separately.',
             'Alternatively, convert the concentration: 2.0 mol/L × (1000 mmol/mol) = 2000 mmol/L, then × 0.500 L = 1000 mmol.',
@@ -423,7 +423,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-atm-Pa'],
-        answer: { value: 253312.5, unit: 'Pa', tolerance: 0.01 },
+        answer: { value: 253312.5, unit: 'Pa', tolerance: 0.05 },
         hints: [
             'One conversion factor handles this directly.',
             'Use 101 325 Pa / 1 atm to cancel atm and get Pa.',
@@ -463,7 +463,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-km-m', 'f-h-s'],
-        answer: { value: 25, unit: 'm/s', tolerance: 0.01 },
+        answer: { value: 25, unit: 'm/s', tolerance: 0.05 },
         hints: [
             'km/h has two units to convert: km → m and h → s.',
             'For km → m: multiply by (1000 m / 1 km). This stays in the numerator.',
@@ -497,7 +497,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-g-kg', 'f-cm3-m3'],
-        answer: { value: 7870, unit: 'kg/m³', tolerance: 0.01 },
+        answer: { value: 7870, unit: 'kg/m³', tolerance: 0.05 },
         hints: [
             'Density is g/cm³. You need to convert the numerator (g → kg) AND the denominator (cm³ → m³) separately.',
             'g → kg: 1 kg / 1000 g. Since g is in the numerator of density, this factor goes in normally.',
@@ -529,7 +529,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-mol-mmol', 'f-L-mL'],
-        answer: { value: 0.500, unit: 'mmol/mL', tolerance: 0.02 },
+        answer: { value: 0.500, unit: 'mmol/mL', tolerance: 0.05 },
         hints: [
             'Notice this is a compound unit: mol/L. Both numerator and denominator need converting.',
             'Numerator: mol → mmol using 1000 mmol / 1 mol.',
@@ -559,7 +559,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-mol-mmol', 'f-s-min'],
-        answer: { value: 1.44, unit: 'mmol/(L·min)', tolerance: 0.02 },
+        answer: { value: 1.44, unit: 'mmol/(L·min)', tolerance: 0.05 },
         hints: [
             'The rate unit is mol/(L·s). You need mmol in the numerator and min in the denominator.',
             'Convert mol → mmol: × (1000 mmol / 1 mol).',
@@ -595,7 +595,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-m2-cm2'],
-        answer: { value: 240000, unit: 'cm²', tolerance: 0.01 },
+        answer: { value: 240000, unit: 'cm²', tolerance: 0.05 },
         hints: [
             'Area is m². Because it is squared, the linear factor (100 cm/m) must be applied twice: 100² = 10 000.',
             'The combined factor is 10 000 cm² / 1 m².',
@@ -625,7 +625,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-m3-cm3'],
-        answer: { value: 2500000, unit: 'cm³', tolerance: 0.01 },
+        answer: { value: 2500000, unit: 'cm³', tolerance: 0.05 },
         hints: [
             'Volume is m³. The linear factor 100 cm/m must be cubed: 100³ = 1 000 000.',
             'The combined factor is 1 000 000 cm³ / 1 m³.',
@@ -655,7 +655,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-km2-m2'],
-        answer: { value: 3200000, unit: 'm²', tolerance: 0.01 },
+        answer: { value: 3200000, unit: 'm²', tolerance: 0.05 },
         hints: [
             '1 km = 1000 m, so 1 km² = (1000)² m² = 1 000 000 m².',
             'Use the factor 1 000 000 m² / 1 km².',
@@ -687,7 +687,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-L-cm3'],
-        answer: { value: 22400, unit: 'cm³/mol', tolerance: 0.01 },
+        answer: { value: 22400, unit: 'cm³/mol', tolerance: 0.05 },
         hints: [
             '1 L = 1000 cm³ (this is exact — no squaring needed here because L is already a volume unit).',
             'Use 1000 cm³ / 1 L in the numerator of your chain.',
@@ -717,7 +717,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-mm2-m2'],
-        answer: { value: 4.5e-5, unit: 'm²', tolerance: 0.02 },
+        answer: { value: 4.5e-5, unit: 'm²', tolerance: 0.05 },
         hints: [
             '1 mm = 0.001 m, so 1 mm² = (0.001)² m² = 1 × 10⁻⁶ m².',
             'Equivalently, 1 m² = 1 000 000 mm², so the factor is 1 m² / 1 000 000 mm².',
@@ -751,7 +751,7 @@ const PROBLEMS = [
             },
         ],
         solution: ['f-g-mg', 'f-L-mL'],
-        answer: { value: 8.0, unit: 'mg/mL', tolerance: 0.02 },
+        answer: { value: 8.0, unit: 'mg/mL', tolerance: 0.05 },
         hints: [
             'g/L is a compound unit. Convert numerator and denominator separately.',
             'g → mg: × (1000 mg / 1 g). L → mL: the L is in the denominator, so use (1000 mL / 1 L) also in the denominator.',
