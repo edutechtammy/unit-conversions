@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interactive unit conversion practice tool for physics and chemistry students. Build conversion chains, cancel units, and check your work step by step." />
+  <title>Unit Conversions — Interactive Practice</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- Skip navigation link — first focusable element on the page (WCAG 2.4.1) -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ============================================================
+       SITE HEADER
+  ============================================================ -->
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <div class="site-header__brand">
+        <!-- SVG logo: decorative, hidden from AT -->
+        <svg class="site-header__logo" aria-hidden="true" focusable="false"
+             width="36" height="36" viewBox="0 0 36 36" fill="none"
+             xmlns="http://www.w3.org/2000/svg">
+          <rect width="36" height="36" rx="8" fill="var(--color-brand)"/>
+          <text x="6" y="26" font-size="22" font-family="monospace" fill="#fff">⇌</text>
+        </svg>
+        <span class="site-header__title">Unit Conversions</span>
+      </div>
+
+      <!-- Primary navigation -->
+      <nav class="primary-nav" aria-label="Main navigation">
+        <button class="primary-nav__toggle" aria-expanded="false" aria-controls="primary-nav-list"
+                aria-label="Open navigation menu">
+          <span class="hamburger" aria-hidden="true"></span>
+        </button>
+
+        <ul class="primary-nav__list" id="primary-nav-list" role="list">
+          <li>
+            <a class="primary-nav__link" href="index.html" aria-current="page">Home</a>
+          </li>
+          <li>
+            <a class="primary-nav__link" href="#level-selector">Practice</a>
+          </li>
+          <li>
+            <a class="primary-nav__link" href="reference.html">Reference Sheet</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN CONTENT
+  ============================================================ -->
+  <main id="main-content" tabindex="-1">
+
+    <!-- ── HERO ─────────────────────────────────────────────── -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero__inner">
+        <h1 id="hero-heading" class="hero__heading">Master Unit Conversions</h1>
+        <p class="hero__sub">
+          Build factor-label chains, cancel units step by step, and develop the
+          core skill used in every quantitative science.
+        </p>
+        <a class="btn btn--primary btn--lg" href="#level-selector">Start Practicing</a>
+      </div>
+    </section>
+
+    <!-- ── LEVEL / FILTER SELECTOR ───────────────────────────── -->
+    <section class="level-selector" id="level-selector" aria-labelledby="level-selector-heading">
+      <div class="container">
+        <h2 id="level-selector-heading" class="section-heading">Choose a Level</h2>
+
+        <!-- Department filter -->
+        <fieldset class="filter-group" id="dept-filter">
+          <legend class="filter-group__legend">Department</legend>
+          <div class="filter-group__options">
+            <label class="chip-label">
+              <input class="chip-input" type="radio" name="department" value="all" checked />
+              <span class="chip">All</span>
+            </label>
+            <label class="chip-label">
+              <input class="chip-input" type="radio" name="department" value="physics" />
+              <span class="chip">Physics</span>
+            </label>
+            <label class="chip-label">
+              <input class="chip-input" type="radio" name="department" value="chemistry" />
+              <span class="chip">Chemistry</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- Level cards -->
+        <div class="level-cards" role="list" aria-label="Practice levels">
+
+          <article class="level-card" role="listitem" data-level="1">
+            <div class="level-card__badge" aria-hidden="true">1</div>
+            <h3 class="level-card__heading">One-Step</h3>
+            <p class="level-card__desc">
+              Single conversion factor. Convert between directly related units
+              like kilometres and metres.
+            </p>
+            <ul class="level-card__tags" aria-label="Available for">
+              <li class="tag tag--physics">Physics</li>
+              <li class="tag tag--chemistry">Chemistry</li>
+            </ul>
+            <button class="btn btn--primary level-card__cta"
+                    data-level="1"
+                    aria-label="Start one-step conversion practice">
+              Start
+            </button>
+          </article>
+
+          <article class="level-card" role="listitem" data-level="2">
+            <div class="level-card__badge" aria-hidden="true">2</div>
+            <h3 class="level-card__heading">Multi-Step</h3>
+            <p class="level-card__desc">
+              Chain two or more conversion factors. Units cancel diagonally until
+              only the target unit remains.
+            </p>
+            <ul class="level-card__tags" aria-label="Available for">
+              <li class="tag tag--physics">Physics</li>
+              <li class="tag tag--chemistry">Chemistry</li>
+            </ul>
+            <button class="btn btn--primary level-card__cta"
+                    data-level="2"
+                    aria-label="Start multi-step conversion practice">
+              Start
+            </button>
+          </article>
+
+          <article class="level-card" role="listitem" data-level="3">
+            <div class="level-card__badge" aria-hidden="true">3</div>
+            <h3 class="level-card__heading">Double Units</h3>
+            <p class="level-card__desc">
+              Compound units with two dimensions, such as speed (m/s) or
+              density (g/mL). Both numerator and denominator convert.
+            </p>
+            <ul class="level-card__tags" aria-label="Available for">
+              <li class="tag tag--physics">Physics</li>
+              <li class="tag tag--chemistry">Chemistry</li>
+            </ul>
+            <button class="btn btn--primary level-card__cta"
+                    data-level="3"
+                    aria-label="Start double-unit conversion practice">
+              Start
+            </button>
+          </article>
+
+          <article class="level-card" role="listitem" data-level="4">
+            <div class="level-card__badge" aria-hidden="true">4</div>
+            <h3 class="level-card__heading">Squared &amp; Cubed</h3>
+            <p class="level-card__desc">
+              Area and volume units. Conversion factors must be applied twice or
+              three times — a common source of errors.
+            </p>
+            <ul class="level-card__tags" aria-label="Available for">
+              <li class="tag tag--physics">Physics</li>
+              <li class="tag tag--chemistry">Chemistry</li>
+            </ul>
+            <button class="btn btn--primary level-card__cta"
+                    data-level="4"
+                    aria-label="Start squared and cubed unit conversion practice">
+              Start
+            </button>
+          </article>
+
+        </div><!-- /.level-cards -->
+      </div>
+    </section>
+
+    <!-- ── PROBLEM WORKSPACE ──────────────────────────────────── -->
+    <section class="workspace" id="workspace" aria-labelledby="workspace-heading" hidden>
+      <div class="container">
+
+        <!-- Workspace header row -->
+        <div class="workspace__header">
+          <div class="workspace__meta">
+            <h2 id="workspace-heading" class="workspace__level-label">
+              <!-- e.g. "Level 2 — Multi-Step" — filled by JS -->
+            </h2>
+            <span class="workspace__dept-badge" aria-label="Department">
+              <!-- "Physics" | "Chemistry" — filled by JS -->
+            </span>
+          </div>
+          <div class="workspace__controls">
+            <span class="workspace__progress" aria-live="polite" aria-atomic="true">
+              <!-- "Problem 2 of 8" — filled by JS -->
+            </span>
+            <button class="btn btn--ghost btn--sm" id="btn-exit-workspace"
+                    aria-label="Exit practice and return to level selection">
+              ✕ Exit
+            </button>
+          </div>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="progress-bar-wrap" aria-hidden="true">
+          <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+        </div>
+
+        <!-- Problem statement -->
+        <div class="problem-statement" id="problem-statement" aria-labelledby="problem-question">
+          <p class="problem-statement__context" id="problem-context">
+            <!-- Optional context sentence — filled by JS -->
+          </p>
+          <p class="problem-statement__question" id="problem-question">
+            <!-- e.g. "How many grams are in 18 lbs?" — filled by JS -->
+          </p>
+          <!-- Given value display -->
+          <div class="given-value" aria-label="Given value">
+            <span class="given-value__number" id="given-number"><!-- 18 --></span>
+            <span class="given-value__unit" id="given-unit"><!-- lbs --></span>
+          </div>
+        </div>
+
+        <!-- Available conversion factors -->
+        <div class="factor-bank" id="factor-bank" aria-labelledby="factor-bank-label">
+          <h3 class="factor-bank__label" id="factor-bank-label">
+            Available Conversion Factors
+            <span class="factor-bank__hint">(select the ones you need, in order)</span>
+          </h3>
+          <div class="factor-bank__grid" role="group" aria-label="Conversion factor choices">
+            <!-- Factor tiles injected by JS -->
+            <!-- Each tile: <button class="factor-tile" data-factor-id="..." aria-pressed="false">
+                   <span class="factor-tile__num">1 kg</span>
+                   <span class="factor-tile__bar" aria-hidden="true"></span>
+                   <span class="factor-tile__den">1000 g</span>
+                 </button>  -->
+          </div>
+        </div>
+
+        <!-- Fraction chain builder -->
+        <div class="chain-builder" id="chain-builder" aria-labelledby="chain-builder-label">
+          <h3 class="chain-builder__label" id="chain-builder-label">Your Conversion Chain</h3>
+
+          <div class="chain" id="chain" role="region" aria-label="Conversion chain" aria-live="polite">
+            <!-- Given fraction — always first, locked -->
+            <div class="chain__given fraction" aria-label="Given value">
+              <span class="fraction__num" id="chain-given-num">18 lbs</span>
+              <span class="fraction__bar" aria-hidden="true"></span>
+              <span class="fraction__den">1</span>
+            </div>
+
+            <!-- Multiplication signs and factor fractions injected here by JS -->
+            <!-- Example of an injected step:
+              <span class="chain__op" aria-hidden="true">×</span>
+              <div class="chain__step fraction" data-step="0">
+                <span class="fraction__num cancelled" aria-label="454 g — cancelled">454 g</span>
+                <span class="fraction__bar" aria-hidden="true"></span>
+                <span class="fraction__den">1 lb</span>
+              </div>
+            -->
+
+            <!-- Result placeholder -->
+            <span class="chain__op chain__op--equals" aria-hidden="true">=</span>
+            <div class="chain__result fraction" id="chain-result" aria-live="assertive" aria-atomic="true">
+              <span class="fraction__num" id="chain-result-num" aria-label="Result">?</span>
+              <span class="fraction__bar" aria-hidden="true"></span>
+              <span class="fraction__den" id="chain-result-den">1</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Answer entry -->
+        <div class="answer-entry" id="answer-entry" aria-labelledby="answer-entry-label">
+          <h3 class="answer-entry__label" id="answer-entry-label">Enter Your Answer</h3>
+          <div class="answer-entry__row">
+            <div class="answer-entry__field-wrap">
+              <label class="answer-entry__field-label" for="answer-number">
+                Numerical value
+                <span class="answer-entry__field-hint" id="answer-number-hint">
+                  Accepted: decimals and scientific notation (e.g. 3.2 or 3.2e4)
+                </span>
+              </label>
+              <input class="answer-entry__input" type="text" id="answer-number"
+                     inputmode="decimal"
+                     autocomplete="off"
+                     spellcheck="false"
+                     aria-describedby="answer-number-hint answer-feedback"
+                     placeholder="e.g. 8.17" />
+            </div>
+
+            <div class="answer-entry__field-wrap">
+              <label class="answer-entry__field-label" for="answer-unit">
+                Unit
+              </label>
+              <input class="answer-entry__input answer-entry__input--unit" type="text" id="answer-unit"
+                     autocomplete="off"
+                     spellcheck="false"
+                     aria-describedby="answer-feedback"
+                     placeholder="e.g. kg" />
+            </div>
+
+            <button class="btn btn--primary" id="btn-check-answer" type="button"
+                    aria-label="Check your answer">
+              Check Answer
+            </button>
+          </div>
+
+          <!-- Feedback — ARIA live region so screen readers announce it -->
+          <div class="answer-feedback" id="answer-feedback"
+               role="status" aria-live="polite" aria-atomic="true">
+            <!-- Injected by JS:
+              <div class="answer-feedback__correct">
+                <span class="answer-feedback__icon" aria-hidden="true">✓</span>
+                Correct! 8.17 kg is right.
+              </div>
+              OR
+              <div class="answer-feedback__incorrect">
+                <span class="answer-feedback__icon" aria-hidden="true">✗</span>
+                Not quite. Check your chain — do all units cancel?
+              </div>
+            -->
+          </div>
+        </div>
+
+        <!-- Hint panel -->
+        <div class="hint-panel" id="hint-panel">
+          <button class="btn btn--ghost hint-panel__toggle" id="btn-hint"
+                  aria-expanded="false" aria-controls="hint-content"
+                  type="button">
+            <span aria-hidden="true">💡</span> Get a Hint
+            <span class="hint-panel__count" id="hint-count" aria-label="0 hints used">
+              <!-- "(1 of 3)" — filled by JS -->
+            </span>
+          </button>
+
+          <div class="hint-panel__content" id="hint-content" hidden>
+            <p class="hint-panel__text" id="hint-text" aria-live="polite">
+              <!-- Hint text injected by JS -->
+            </p>
+            <button class="btn btn--ghost btn--sm hint-panel__next" id="btn-hint-next"
+                    type="button" hidden>
+              Next hint
+            </button>
+          </div>
+        </div>
+
+        <!-- Problem action bar -->
+        <div class="problem-actions" role="group" aria-label="Problem navigation">
+          <button class="btn btn--ghost btn--sm" id="btn-prev-problem"
+                  type="button" aria-label="Previous problem">
+            ← Previous
+          </button>
+          <button class="btn btn--primary btn--sm" id="btn-next-problem"
+                  type="button" aria-label="Next problem" disabled>
+            Next Problem →
+          </button>
+        </div>
+
+      </div><!-- /.container -->
+    </section><!-- /#workspace -->
+
+    <!-- ── SESSION SUMMARY (shown after completing a set) ────── -->
+    <section class="summary" id="summary" aria-labelledby="summary-heading" hidden>
+      <div class="container">
+        <h2 id="summary-heading" class="section-heading">Session Complete!</h2>
+
+        <div class="summary__scorecard" aria-label="Your score">
+          <div class="summary__stat">
+            <span class="summary__stat-value" id="summary-score">0</span>
+            <span class="summary__stat-label">Correct</span>
+          </div>
+          <div class="summary__stat">
+            <span class="summary__stat-value" id="summary-total">0</span>
+            <span class="summary__stat-label">Total</span>
+          </div>
+          <div class="summary__stat">
+            <span class="summary__stat-value" id="summary-pct">0%</span>
+            <span class="summary__stat-label">Score</span>
+          </div>
+        </div>
+
+        <!-- Per-problem breakdown table -->
+        <div class="summary__table-wrap" role="region" aria-label="Problem-by-problem results" tabindex="0">
+          <table class="summary__table" id="summary-table">
+            <caption class="summary__table-caption">Your results, problem by problem</caption>
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Problem</th>
+                <th scope="col">Your Answer</th>
+                <th scope="col">Correct Answer</th>
+                <th scope="col">Result</th>
+              </tr>
+            </thead>
+            <tbody id="summary-tbody">
+              <!-- Rows injected by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="summary__actions" role="group" aria-label="Session actions">
+          <button class="btn btn--primary" id="btn-retry" type="button">
+            Try Again
+          </button>
+          <button class="btn btn--ghost" id="btn-new-level" type="button">
+            Choose a Different Level
+          </button>
+          <button class="btn btn--ghost" id="btn-export" type="button"
+                  aria-label="Export your results as a text summary">
+            Export Results
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       SITE FOOTER
+  ============================================================ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <p class="site-footer__text">
+        Built for Physics &amp; Chemistry departments.
+        Keyboard-accessible · Screen-reader-friendly · WCAG 2.1 AA.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       SCRIPTS (deferred — loaded after HTML is parsed)
+  ============================================================ -->
+  <script src="problems.js" defer></script>
+  <script src="app.js" defer></script>
+
+</body>
+</html>
