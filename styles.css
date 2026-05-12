@@ -929,9 +929,13 @@ abbr[title] {
     border-radius: var(--radius-md);
     font-family: var(--font-mono);
     font-size: var(--text-sm);
+    /* Explicit colour — never rely on inheritance alone so contrast holds
+       in both light and dark mode (--color-neutral-800 swaps to light in dark mode) */
+    color: var(--color-neutral-800);
     cursor: pointer;
     transition: border-color var(--transition-fast),
         background var(--transition-fast),
+        color var(--transition-fast),
         box-shadow var(--transition-fast),
         transform var(--transition-fast);
     min-width: 80px;
@@ -940,6 +944,9 @@ abbr[title] {
 .factor-tile:hover {
     border-color: var(--color-brand);
     background: var(--color-brand-light);
+    /* --color-brand-dark is dark in light mode, light in dark mode —
+       always high-contrast against --color-brand-light */
+    color: var(--color-brand-dark);
     transform: translateY(-2px);
     box-shadow: var(--shadow-sm);
 }
@@ -947,12 +954,14 @@ abbr[title] {
 .factor-tile[aria-pressed="true"] {
     border-color: var(--color-brand);
     background: var(--color-brand);
-    color: var(--color-neutral-0);
+    /* Hardcoded white — light mode: white on #1a56a0 = 7.4:1 ✓
+       Dark mode override below uses dark text on light blue instead */
+    color: #ffffff;
     box-shadow: var(--shadow-sm);
 }
 
 .factor-tile[aria-pressed="true"] .factor-tile__bar {
-    background: rgba(255, 255, 255, .6);
+    background: rgba(255, 255, 255, .85);
 }
 
 .factor-tile__num,
@@ -987,7 +996,8 @@ abbr[title] {
 /* Flip toggle button */
 .factor-tile__flip {
     font-size: 10px;
-    color: var(--color-neutral-400);
+    /* neutral-600 gives ≥ 4.5:1 against the tile background in both modes */
+    color: var(--color-neutral-600);
     background: none;
     border: none;
     cursor: pointer;
@@ -998,7 +1008,17 @@ abbr[title] {
 }
 
 .factor-tile__flip:hover {
-    color: var(--color-brand);
+    color: var(--color-brand-dark);
+}
+
+/* On a pressed (selected) tile the flip button sits on brand blue;
+   white ensures it remains readable */
+.factor-tile[aria-pressed="true"] .factor-tile__flip {
+    color: rgba(255, 255, 255, .85);
+}
+
+.factor-tile[aria-pressed="true"] .factor-tile__flip:hover {
+    color: #ffffff;
 }
 
 
@@ -1497,6 +1517,26 @@ abbr[title] {
    22. DARK MODE  (prefers-color-scheme: dark)
 ================================================================ */
 @media (prefers-color-scheme: dark) {
+
+    /* Pressed factor tile — in dark mode --color-brand flips to #5a9de8 (light blue).
+       White text on that background is only 2.7:1 (fails).
+       Switch to dark text: #1a1e2a on #5a9de8 = 6.3:1 ✓ */
+    .factor-tile[aria-pressed="true"] {
+        color: var(--color-neutral-0);   /* #1a1e2a — near-black on light blue */
+    }
+
+    .factor-tile[aria-pressed="true"] .factor-tile__bar {
+        background: rgba(0, 0, 0, .45);
+    }
+
+    .factor-tile[aria-pressed="true"] .factor-tile__flip {
+        color: rgba(0, 0, 0, .7);
+    }
+
+    .factor-tile[aria-pressed="true"] .factor-tile__flip:hover {
+        color: var(--color-neutral-0);
+    }
+
     :root {
         --color-brand: #5a9de8;
         --color-brand-dark: #92bff0;
