@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Printable unit conversion reference sheet for physics and chemistry students. Common conversion factors organised by category." />
+  <title>Reference Sheet — Unit Conversions</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Reference-page–specific styles ─────────────────────── */
+
+    .ref-hero {
+      background: var(--color-brand);
+      color: #fff;
+      padding: var(--space-6) var(--space-4);
+      text-align: center;
+    }
+
+    .ref-hero__title {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      margin: 0 0 var(--space-2);
+    }
+
+    .ref-hero__subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+      margin: 0;
+    }
+
+    /* Print button — hidden in print */
+    .ref-toolbar {
+      display: flex;
+      justify-content: flex-end;
+      gap: var(--space-3);
+      padding: var(--space-4) var(--space-4) 0;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .ref-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: var(--space-4);
+      display: grid;
+      gap: var(--space-6);
+    }
+
+    /* Category card */
+    .ref-card {
+      background: var(--color-neutral-0);
+      border: 1px solid var(--color-neutral-200);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .ref-card__header {
+      background: var(--color-brand-light);
+      padding: var(--space-3) var(--space-4);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .ref-card__icon {
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
+    .ref-card__title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-brand-dark);
+      margin: 0;
+    }
+
+    .ref-card__dept-badge {
+      margin-left: auto;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: var(--color-brand);
+      color: #fff;
+      border-radius: 999px;
+      padding: 2px 10px;
+    }
+
+    /* Conversion table */
+    .ref-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.93rem;
+    }
+
+    .ref-table thead tr {
+      background: var(--color-neutral-50);
+    }
+
+    .ref-table th {
+      padding: var(--space-2) var(--space-3);
+      text-align: left;
+      font-weight: 600;
+      color: var(--color-neutral-600);
+      border-bottom: 2px solid var(--color-neutral-200);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .ref-table td {
+      padding: var(--space-2) var(--space-3);
+      border-bottom: 1px solid var(--color-neutral-100);
+      color: var(--color-neutral-800);
+      vertical-align: middle;
+    }
+
+    .ref-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .ref-table tbody tr:hover {
+      background: var(--color-brand-light);
+    }
+
+    /* Factor fraction display inside table */
+    .ref-factor {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.2;
+      font-weight: 600;
+      color: var(--color-neutral-800);
+      min-width: 80px;
+    }
+
+    .ref-factor__num {
+      padding-bottom: 2px;
+    }
+
+    .ref-factor__bar {
+      width: 100%;
+      height: 2px;
+      background: var(--color-neutral-400);
+      border-radius: 1px;
+      margin: 2px 0;
+    }
+
+    .ref-factor__den {
+      padding-top: 2px;
+    }
+
+    /* "equals" relationship column */
+    .ref-equals {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-mono, monospace);
+      font-size: 0.95rem;
+    }
+
+    .ref-equals__arrow {
+      color: var(--color-neutral-400);
+      font-style: normal;
+    }
+
+    /* How-to-use callout */
+    .ref-callout {
+      background: var(--color-brand-light);
+      border-left: 4px solid var(--color-brand);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: var(--space-4);
+    }
+
+    .ref-callout__title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--color-brand-dark);
+      margin: 0 0 var(--space-2);
+    }
+
+    .ref-callout ol,
+    .ref-callout ul {
+      margin: 0;
+      padding-left: 1.4em;
+      font-size: 0.92rem;
+      color: var(--color-neutral-700);
+    }
+
+    .ref-callout li {
+      margin-bottom: var(--space-1);
+    }
+
+    /* Two-column grid on wider screens */
+    @media (min-width: 700px) {
+      .ref-content--two-col {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* ── Print styles ────────────────────────────────────────── */
+    @media print {
+      .site-header,
+      .skip-link,
+      .ref-toolbar,
+      .site-footer { display: none !important; }
+
+      .ref-hero {
+        background: #1a56a0 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .ref-card {
+        break-inside: avoid;
+        box-shadow: none;
+      }
+
+      .ref-content {
+        padding: 0;
+      }
+
+      body {
+        font-size: 11pt;
+      }
+    }
+
+    /* ── Dark-mode overrides ─────────────────────────────────── */
+    @media (prefers-color-scheme: dark) {
+      .ref-card__title { color: var(--color-brand); }
+      .ref-table th { color: var(--color-neutral-400); }
+      .ref-factor { color: var(--color-neutral-100); }
+      .ref-table td { color: var(--color-neutral-100); }
+      .ref-callout__title { color: var(--color-brand); }
+      .ref-callout ol,
+      .ref-callout ul { color: var(--color-neutral-300); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- SITE HEADER (identical to index.html) -->
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <div class="site-header__brand">
+        <svg class="site-header__logo" aria-hidden="true" focusable="false"
+             width="36" height="36" viewBox="0 0 36 36" fill="none"
+             xmlns="http://www.w3.org/2000/svg">
+          <rect width="36" height="36" rx="8" fill="var(--color-brand)"/>
+          <text x="6" y="26" font-size="22" font-family="monospace" fill="#fff">⇌</text>
+        </svg>
+        <span class="site-header__title">Unit Conversions</span>
+      </div>
+
+      <nav class="primary-nav" aria-label="Main navigation">
+        <button class="primary-nav__toggle" aria-expanded="false" aria-controls="primary-nav-list"
+                aria-label="Open navigation menu">
+          <span class="hamburger" aria-hidden="true"></span>
+        </button>
+
+        <ul class="primary-nav__list" id="primary-nav-list" role="list">
+          <li>
+            <a class="primary-nav__link" href="index.html">Home</a>
+          </li>
+          <li>
+            <a class="primary-nav__link" href="index.html#level-selector">Practice</a>
+          </li>
+          <li>
+            <a class="primary-nav__link" href="reference.html" aria-current="page">Reference Sheet</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+
+    <!-- Hero -->
+    <div class="ref-hero">
+      <h1 class="ref-hero__title">Unit Conversion Reference Sheet</h1>
+      <p class="ref-hero__subtitle">Common conversion factors for Physics &amp; Chemistry · Factor-label method</p>
+    </div>
+
+    <!-- Print / back toolbar -->
+    <div class="ref-toolbar" aria-label="Page tools">
+      <a class="btn btn--ghost" href="index.html">← Back to Practice</a>
+      <button class="btn btn--primary" onclick="window.print()" type="button"
+              aria-label="Print or save this reference sheet as PDF">
+        🖨 Print / Save PDF
+      </button>
+    </div>
+
+    <div class="ref-content" id="main-content-inner">
+
+      <!-- How-to-use callout -->
+      <div class="ref-callout" role="note" aria-label="How to use this reference sheet">
+        <p class="ref-callout__title">How to use the factor-label method</p>
+        <ol>
+          <li>Write your <strong>given value</strong> as a fraction over 1.</li>
+          <li>Multiply by a conversion factor so the <strong>unit you want to cancel</strong> appears in the denominator.</li>
+          <li>Keep multiplying factors until only your <strong>target unit</strong> remains.</li>
+          <li>Multiply all the numbers on top; divide by all the numbers on the bottom.</li>
+        </ol>
+      </div>
+
+      <!-- ── LENGTH ─────────────────────────────────────────── -->
+      <section class="ref-card" aria-labelledby="cat-length">
+        <div class="ref-card__header">
+          <span class="ref-card__icon" aria-hidden="true">📏</span>
+          <h2 class="ref-card__title" id="cat-length">Length</h2>
+          <span class="ref-card__dept-badge">Physics</span>
+        </div>
+        <table class="ref-table" aria-label="Length conversion factors">
+          <thead>
+            <tr>
+              <th scope="col">Relationship</th>
+              <th scope="col">Factor (use either orientation)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="ref-equals">1 km <em class="ref-equals__arrow">=</em> 1 000 m</span></td>
+              <td>
+                <span class="ref-factor" aria-label="1000 metres per 1 kilometre">
+                  <span class="ref-factor__num">1 000 m</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 km</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 m <em class="ref-equals__arrow">=</em> 100 cm</span></td>
+              <td>
+                <span class="ref-factor" aria-label="100 centimetres per 1 metre">
+                  <span class="ref-factor__num">100 cm</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 m</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 m <em class="ref-equals__arrow">=</em> 1 000 mm</span></td>
+              <td>
+                <span class="ref-factor" aria-label="1000 millimetres per 1 metre">
+                  <span class="ref-factor__num">1 000 mm</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 m</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 cm <em class="ref-equals__arrow">=</em> 10 mm</span></td>
+              <td>
+                <span class="ref-factor" aria-label="10 millimetres per 1 centimetre">
+                  <span class="ref-factor__num">10 mm</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 cm</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 in <em class="ref-equals__arrow">=</em> 2.54 cm</span></td>
+              <td>
+                <span class="ref-factor" aria-label="2.54 centimetres per 1 inch">
+                  <span class="ref-factor__num">2.54 cm</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 in</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 ft <em class="ref-equals__arrow">=</em> 12 in</span></td>
+              <td>
+                <span class="ref-factor" aria-label="12 inches per 1 foot">
+                  <span class="ref-factor__num">12 in</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 ft</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 mi <em class="ref-equals__arrow">=</em> 1 609 m</span></td>
+              <td>
+                <span class="ref-factor" aria-label="1609 metres per 1 mile">
+                  <span class="ref-factor__num">1 609 m</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 mi</span>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── MASS ───────────────────────────────────────────── -->
+      <section class="ref-card" aria-labelledby="cat-mass">
+        <div class="ref-card__header">
+          <span class="ref-card__icon" aria-hidden="true">⚖️</span>
+          <h2 class="ref-card__title" id="cat-mass">Mass</h2>
+          <span class="ref-card__dept-badge">Physics · Chem</span>
+        </div>
+        <table class="ref-table" aria-label="Mass conversion factors">
+          <thead>
+            <tr>
+              <th scope="col">Relationship</th>
+              <th scope="col">Factor (use either orientation)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="ref-equals">1 kg <em class="ref-equals__arrow">=</em> 1 000 g</span></td>
+              <td>
+                <span class="ref-factor" aria-label="1000 grams per 1 kilogram">
+                  <span class="ref-factor__num">1 000 g</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 kg</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 g <em class="ref-equals__arrow">=</em> 1 000 mg</span></td>
+              <td>
+                <span class="ref-factor" aria-label="1000 milligrams per 1 gram">
+                  <span class="ref-factor__num">1 000 mg</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 g</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 lb <em class="ref-equals__arrow">=</em> 454 g</span></td>
+              <td>
+                <span class="ref-factor" aria-label="454 grams per 1 pound">
+                  <span class="ref-factor__num">454 g</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 lb</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 lb <em class="ref-equals__arrow">=</em> 16 oz</span></td>
+              <td>
+                <span class="ref-factor" aria-label="16 ounces per 1 pound">
+                  <span class="ref-factor__num">16 oz</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 lb</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 tonne <em class="ref-equals__arrow">=</em> 1 000 kg</span></td>
+              <td>
+                <span class="ref-factor" aria-label="1000 kilograms per 1 metric tonne">
+                  <span class="ref-factor__num">1 000 kg</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 tonne</span>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── TIME ───────────────────────────────────────────── -->
+      <section class="ref-card" aria-labelledby="cat-time">
+        <div class="ref-card__header">
+          <span class="ref-card__icon" aria-hidden="true">⏱️</span>
+          <h2 class="ref-card__title" id="cat-time">Time</h2>
+          <span class="ref-card__dept-badge">Physics · Chem</span>
+        </div>
+        <table class="ref-table" aria-label="Time conversion factors">
+          <thead>
+            <tr>
+              <th scope="col">Relationship</th>
+              <th scope="col">Factor (use either orientation)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="ref-equals">1 hr <em class="ref-equals__arrow">=</em> 60 min</span></td>
+              <td>
+                <span class="ref-factor" aria-label="60 minutes per 1 hour">
+                  <span class="ref-factor__num">60 min</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 hr</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 min <em class="ref-equals__arrow">=</em> 60 s</span></td>
+              <td>
+                <span class="ref-factor" aria-label="60 seconds per 1 minute">
+                  <span class="ref-factor__num">60 s</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 min</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 day <em class="ref-equals__arrow">=</em> 24 hr</span></td>
+              <td>
+                <span class="ref-factor" aria-label="24 hours per 1 day">
+                  <span class="ref-factor__num">24 hr</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 day</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 year <em class="ref-equals__arrow">=</em> 365 days</span></td>
+              <td>
+                <span class="ref-factor" aria-label="365 days per 1 year">
+                  <span class="ref-factor__num">365 days</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 year</span>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── VOLUME ─────────────────────────────────────────── -->
+      <section class="ref-card" aria-labelledby="cat-volume">
+        <div class="ref-card__header">
+          <span class="ref-card__icon" aria-hidden="true">🧪</span>
+          <h2 class="ref-card__title" id="cat-volume">Volume</h2>
+          <span class="ref-card__dept-badge">Physics · Chem</span>
+        </div>
+        <table class="ref-table" aria-label="Volume conversion factors">
+          <thead>
+            <tr>
+              <th scope="col">Relationship</th>
+              <th scope="col">Factor (use either orientation)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="ref-equals">1 L <em class="ref-equals__arrow">=</em> 1 000 mL</span></td>
+              <td>
+                <span class="ref-factor" aria-label="1000 millilitres per 1 litre">
+                  <span class="ref-factor__num">1 000 mL</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 L</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 mL <em class="ref-equals__arrow">=</em> 1 cm³</span></td>
+              <td>
+                <span class="ref-factor" aria-label="1 cubic centimetre per 1 millilitre">
+                  <span class="ref-factor__num">1 cm³</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 mL</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 L <em class="ref-equals__arrow">=</em> 1 000 cm³</span></td>
+              <td>
+                <span class="ref-factor" aria-label="1000 cubic centimetres per 1 litre">
+                  <span class="ref-factor__num">1 000 cm³</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 L</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 m³ <em class="ref-equals__arrow">=</em> 1 000 L</span></td>
+              <td>
+                <span class="ref-factor" aria-label="1000 litres per 1 cubic metre">
+                  <span class="ref-factor__num">1 000 L</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 m³</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 gal <em class="ref-equals__arrow">=</em> 3.785 L</span></td>
+              <td>
+                <span class="ref-factor" aria-label="3.785 litres per 1 US gallon">
+                  <span class="ref-factor__num">3.785 L</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 gal</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 cup <em class="ref-equals__arrow">=</em> 250 mL</span></td>
+              <td>
+                <span class="ref-factor" aria-label="250 millilitres per 1 cup">
+                  <span class="ref-factor__num">250 mL</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 cup</span>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── ENERGY ─────────────────────────────────────────── -->
+      <section class="ref-card" aria-labelledby="cat-energy">
+        <div class="ref-card__header">
+          <span class="ref-card__icon" aria-hidden="true">⚡</span>
+          <h2 class="ref-card__title" id="cat-energy">Energy</h2>
+          <span class="ref-card__dept-badge">Physics · Chem</span>
+        </div>
+        <table class="ref-table" aria-label="Energy conversion factors">
+          <thead>
+            <tr>
+              <th scope="col">Relationship</th>
+              <th scope="col">Factor (use either orientation)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="ref-equals">1 kJ <em class="ref-equals__arrow">=</em> 1 000 J</span></td>
+              <td>
+                <span class="ref-factor" aria-label="1000 joules per 1 kilojoule">
+                  <span class="ref-factor__num">1 000 J</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 kJ</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 cal <em class="ref-equals__arrow">=</em> 4.184 J</span></td>
+              <td>
+                <span class="ref-factor" aria-label="4.184 joules per 1 calorie">
+                  <span class="ref-factor__num">4.184 J</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 cal</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 kcal <em class="ref-equals__arrow">=</em> 1 000 cal</span></td>
+              <td>
+                <span class="ref-factor" aria-label="1000 calories per 1 kilocalorie">
+                  <span class="ref-factor__num">1 000 cal</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 kcal</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 kcal <em class="ref-equals__arrow">=</em> 4 184 J</span></td>
+              <td>
+                <span class="ref-factor" aria-label="4184 joules per 1 kilocalorie">
+                  <span class="ref-factor__num">4 184 J</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 kcal</span>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── PRESSURE ───────────────────────────────────────── -->
+      <section class="ref-card" aria-labelledby="cat-pressure">
+        <div class="ref-card__header">
+          <span class="ref-card__icon" aria-hidden="true">🌡️</span>
+          <h2 class="ref-card__title" id="cat-pressure">Pressure</h2>
+          <span class="ref-card__dept-badge">Chem</span>
+        </div>
+        <table class="ref-table" aria-label="Pressure conversion factors">
+          <thead>
+            <tr>
+              <th scope="col">Relationship</th>
+              <th scope="col">Factor (use either orientation)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="ref-equals">1 atm <em class="ref-equals__arrow">=</em> 101 325 Pa</span></td>
+              <td>
+                <span class="ref-factor" aria-label="101325 pascals per 1 atmosphere">
+                  <span class="ref-factor__num">101 325 Pa</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 atm</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 atm <em class="ref-equals__arrow">=</em> 760 mmHg</span></td>
+              <td>
+                <span class="ref-factor" aria-label="760 millimetres of mercury per 1 atmosphere">
+                  <span class="ref-factor__num">760 mmHg</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 atm</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 atm <em class="ref-equals__arrow">=</em> 760 torr</span></td>
+              <td>
+                <span class="ref-factor" aria-label="760 torr per 1 atmosphere">
+                  <span class="ref-factor__num">760 torr</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 atm</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 kPa <em class="ref-equals__arrow">=</em> 1 000 Pa</span></td>
+              <td>
+                <span class="ref-factor" aria-label="1000 pascals per 1 kilopascal">
+                  <span class="ref-factor__num">1 000 Pa</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 kPa</span>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── AMOUNT (MOL) ───────────────────────────────────── -->
+      <section class="ref-card" aria-labelledby="cat-mol">
+        <div class="ref-card__header">
+          <span class="ref-card__icon" aria-hidden="true">⚗️</span>
+          <h2 class="ref-card__title" id="cat-mol">Amount of Substance</h2>
+          <span class="ref-card__dept-badge">Chem</span>
+        </div>
+        <table class="ref-table" aria-label="Amount of substance conversion factors">
+          <thead>
+            <tr>
+              <th scope="col">Relationship</th>
+              <th scope="col">Factor (use either orientation)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="ref-equals">1 mol <em class="ref-equals__arrow">=</em> 1 000 mmol</span></td>
+              <td>
+                <span class="ref-factor" aria-label="1000 millimoles per 1 mole">
+                  <span class="ref-factor__num">1 000 mmol</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 mol</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 mol <em class="ref-equals__arrow">=</em> 6.022 × 10²³ particles</span></td>
+              <td>
+                <span class="ref-factor" aria-label="6.022 times 10 to the 23 particles per 1 mole">
+                  <span class="ref-factor__num">6.022 × 10²³ particles</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 mol</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 mol (gas, STP) <em class="ref-equals__arrow">=</em> 22.4 L</span></td>
+              <td>
+                <span class="ref-factor" aria-label="22.4 litres per 1 mole of gas at STP">
+                  <span class="ref-factor__num">22.4 L</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 mol</span>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── AREA & VOLUME (derived) ────────────────────────── -->
+      <section class="ref-card" aria-labelledby="cat-area">
+        <div class="ref-card__header">
+          <span class="ref-card__icon" aria-hidden="true">📐</span>
+          <h2 class="ref-card__title" id="cat-area">Area &amp; Volume (derived)</h2>
+          <span class="ref-card__dept-badge">Physics · Chem</span>
+        </div>
+        <table class="ref-table" aria-label="Area and volume derived conversion factors">
+          <thead>
+            <tr>
+              <th scope="col">Relationship</th>
+              <th scope="col">Factor (use either orientation)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="ref-equals">1 m² <em class="ref-equals__arrow">=</em> 10 000 cm²</span></td>
+              <td>
+                <span class="ref-factor" aria-label="10000 square centimetres per 1 square metre">
+                  <span class="ref-factor__num">10 000 cm²</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 m²</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 km² <em class="ref-equals__arrow">=</em> 1 000 000 m²</span></td>
+              <td>
+                <span class="ref-factor" aria-label="1 000 000 square metres per 1 square kilometre">
+                  <span class="ref-factor__num">1 000 000 m²</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 km²</span>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 m³ <em class="ref-equals__arrow">=</em> 1 000 000 cm³</span></td>
+              <td>
+                <span class="ref-factor" aria-label="1 000 000 cubic centimetres per 1 cubic metre">
+                  <span class="ref-factor__num">1 000 000 cm³</span>
+                  <span class="ref-factor__bar" aria-hidden="true"></span>
+                  <span class="ref-factor__den">1 m³</span>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── SPEED ──────────────────────────────────────────── -->
+      <section class="ref-card" aria-labelledby="cat-speed">
+        <div class="ref-card__header">
+          <span class="ref-card__icon" aria-hidden="true">🚀</span>
+          <h2 class="ref-card__title" id="cat-speed">Speed (compound units)</h2>
+          <span class="ref-card__dept-badge">Physics</span>
+        </div>
+        <table class="ref-table" aria-label="Speed conversion factors">
+          <thead>
+            <tr>
+              <th scope="col">Relationship</th>
+              <th scope="col">How to build the chain</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="ref-equals">1 km/h <em class="ref-equals__arrow">→</em> m/s</span></td>
+              <td>Multiply by <strong>1 000 m / 1 km</strong> then by <strong>1 hr / 3 600 s</strong></td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 m/s <em class="ref-equals__arrow">=</em> 3.6 km/h</span></td>
+              <td>Multiply by <strong>3 600 s / 1 hr</strong> then by <strong>1 km / 1 000 m</strong></td>
+            </tr>
+            <tr>
+              <td><span class="ref-equals">1 mi/h <em class="ref-equals__arrow">→</em> m/s</span></td>
+              <td>Multiply by <strong>1 609 m / 1 mi</strong> then by <strong>1 hr / 3 600 s</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ── TIPS ───────────────────────────────────────────── -->
+      <div class="ref-callout" role="note" aria-label="Tips for multi-step conversions">
+        <p class="ref-callout__title">Tips for multi-step problems</p>
+        <ul>
+          <li><strong>Compound units (m/s, kg/m³, mol/L)</strong> — convert the top and bottom separately by inserting extra factors.</li>
+          <li><strong>Area &amp; volume</strong> — square or cube the linear factor. 1 m = 100 cm, so 1 m² = 100² cm² = 10 000 cm².</li>
+          <li><strong>Check your answer</strong> — if you're converting to a smaller unit, your number should get bigger, and vice versa.</li>
+          <li><strong>Unit cancellation</strong> — every unit in a denominator cancels with the same unit in a numerator above or below it.</li>
+        </ul>
+      </div>
+
+    </div><!-- /.ref-content -->
+  </main>
+
+  <!-- SITE FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <p class="site-footer__text">
+        Built for Physics &amp; Chemistry departments.
+        Keyboard-accessible · Screen-reader-friendly · WCAG 2.1 AA.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Mobile nav toggle (reuses app.js hamburger logic) -->
+  <script>
+    'use strict';
+    // Minimal nav toggle so hamburger works without loading full app.js
+    (function () {
+      const toggle = document.querySelector('.primary-nav__toggle');
+      const list   = document.getElementById('primary-nav-list');
+      if (!toggle || !list) return;
+
+      toggle.addEventListener('click', function () {
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!expanded));
+        list.classList.toggle('is-open', !expanded);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          toggle.setAttribute('aria-expanded', 'false');
+          list.classList.remove('is-open');
+        }
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.primary-nav')) {
+          toggle.setAttribute('aria-expanded', 'false');
+          list.classList.remove('is-open');
+        }
+      });
+    }());
+  </script>
+
+</body>
+</html>
