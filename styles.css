@@ -1529,8 +1529,10 @@ abbr[title] {
        is also light: only 3.83:1. Keep the footer visually dark by pinning it
        to neutral-50 (dark mode = #13161f) with neutral-600 text = 9.8:1 ✓ */
     .site-footer {
-        background: var(--color-neutral-50);   /* #13161f in dark mode — stays dark */
-        color: var(--color-neutral-600);        /* #b0bac9 on #13161f = 9.8:1 ✓ */
+        background: var(--color-neutral-50);
+        /* #13161f in dark mode — stays dark */
+        color: var(--color-neutral-600);
+        /* #b0bac9 on #13161f = 9.8:1 ✓ */
     }
 
     /* Pressed factor tile — in dark mode --color-brand flips to #5a9de8 (light blue).
