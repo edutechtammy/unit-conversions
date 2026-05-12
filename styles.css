@@ -837,7 +837,9 @@ abbr[title] {
     align-items: center;
     justify-content: center;
     background: var(--color-accent);
-    color: var(--color-neutral-0);
+    /* Hardcoded #ffffff — neutral-0 flips to near-black in dark mode
+       giving only 3.43:1 on orange. #fff on #c8460a = 4.86:1 ✓ in both modes */
+    color: #ffffff;
     border: none;
     border-radius: var(--radius-full);
     font-size: 11px;
@@ -908,7 +910,8 @@ abbr[title] {
 .factor-bank__hint {
     font-size: var(--text-sm);
     font-weight: var(--font-weight-normal);
-    color: var(--color-neutral-400);
+    /* neutral-400 was 2.59:1 on white — fails AA. neutral-600 = 7.1:1 ✓ */
+    color: var(--color-neutral-600);
 }
 
 .factor-bank__grid {
@@ -1063,7 +1066,8 @@ abbr[title] {
     display: block;
     font-size: var(--text-xs);
     font-weight: var(--font-weight-normal);
-    color: var(--color-neutral-400);
+    /* neutral-400 was 2.59:1 on white — fails AA. neutral-600 = 7.1:1 ✓ */
+    color: var(--color-neutral-600);
     margin-top: 2px;
 }
 
@@ -1155,7 +1159,8 @@ abbr[title] {
 
 .hint-panel__count {
     font-size: var(--text-xs);
-    color: var(--color-neutral-400);
+    /* neutral-400 was ~2.4:1 on light backgrounds — fails AA. neutral-600 = 6.7:1 ✓ */
+    color: var(--color-neutral-600);
 }
 
 .hint-panel__content {
@@ -1253,7 +1258,8 @@ abbr[title] {
 
 .summary__table-caption {
     font-size: var(--text-xs);
-    color: var(--color-neutral-400);
+    /* neutral-400 was 2.44:1 on neutral-50 — fails AA. neutral-600 = 6.7:1 ✓ */
+    color: var(--color-neutral-600);
     text-align: left;
     padding: var(--space-3) var(--space-4);
     font-weight: var(--font-weight-medium);
@@ -1518,11 +1524,21 @@ abbr[title] {
 ================================================================ */
 @media (prefers-color-scheme: dark) {
 
+    /* Footer — in dark mode --color-neutral-800 flips to #e8eaf2 (light gray),
+       making the footer background light while its text (neutral-400 = #6b7591)
+       is also light: only 3.83:1. Keep the footer visually dark by pinning it
+       to neutral-50 (dark mode = #13161f) with neutral-600 text = 9.8:1 ✓ */
+    .site-footer {
+        background: var(--color-neutral-50);   /* #13161f in dark mode — stays dark */
+        color: var(--color-neutral-600);        /* #b0bac9 on #13161f = 9.8:1 ✓ */
+    }
+
     /* Pressed factor tile — in dark mode --color-brand flips to #5a9de8 (light blue).
        White text on that background is only 2.7:1 (fails).
        Switch to dark text: #1a1e2a on #5a9de8 = 6.3:1 ✓ */
     .factor-tile[aria-pressed="true"] {
-        color: var(--color-neutral-0);   /* #1a1e2a — near-black on light blue */
+        color: var(--color-neutral-0);
+        /* #1a1e2a — near-black on light blue */
     }
 
     .factor-tile[aria-pressed="true"] .factor-tile__bar {
